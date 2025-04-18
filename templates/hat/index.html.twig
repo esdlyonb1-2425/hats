@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The hats{% endblock %}
+
+{% block body %}
+<div class="row">
+    {% for hat in hats %}
+
+        <div class="col-2">
+
+            <div class="card" style="height:30vh">
+                <div class="card-body">
+                    <img src="https://picsum.photos/80/80"  class="card-img-top" alt="...">
+
+                    <p class="card-text"><strong>{{ hat.name }}</strong></p>
+                    <p class="card-text"><strong>{{ hat.material.name }}</strong></p>
+                    <p class="card-text"><strong>{{ hat.price }}€</strong></p>
+                    <a href="{{ path('app_hat', {id:hat.id}) }}" class="btn btn-primary">See</a>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    {% endfor %}
+    </div>
+
+{% endblock %}
