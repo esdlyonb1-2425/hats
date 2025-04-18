@@ -3,10 +3,15 @@
 {% block body %}
     <div class="card col" >
         <div class="card-body">
-            <img src="https://picsum.photos/280/280" style="height:50vh" class="card-img-top" alt="...">
+
+            {% for image in hat.images %}
+            <img src="{{ vich_uploader_asset(image, 'imageFile') }}" style="height:50vh" class="card-img-top" alt="...">
+
+            {% endfor %}
 
             <p class="card-text"><strong>{{ hat.name }}</strong></p>
             <p class="card-text"><strong>{{ hat.price }}€</strong></p>
+            <a href="{{ path('image_hat', {id:hat.id}) }}" class="btn btn-success">add image</a>
         </div>
     </div>
 {% endblock %}

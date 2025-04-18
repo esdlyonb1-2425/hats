@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Hat;
+use App\Entity\Image;
 use App\Form\HatType;
+use App\Form\ImageType;
 use App\Repository\HatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +45,24 @@ final class HatController extends AbstractController
         }
         return $this->render('hat/create.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/hat/addimage/{id}', name: 'image_hat')]
+    public function addImage(Hat $hat, Request $request, EntityManagerInterface $manager): Response
+    {
+        $image = new Image();
+        $form = $this->createForm(ImageType::class, $image);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $image->setHat($hat);
+            $manager->persist($image);
+            $manager->flush();
+            return $this->redirectToRoute('app_hats');
+        }
+        return $this->render('hat/addimage.html.twig', [
+            'form' => $form->createView(),
+
         ]);
     }
 
